@@ -1,216 +1,212 @@
-# Sistema de Gestión de Adquisiciones - Frontend
+# Sistema de Gestión de Registro de Adquisiciones (WEB)
 
-Este proyecto es el **frontend** de nuestra aplicación, desarrollada con **Angular 19 y NgRx** para una gestión eficiente del estado global y una experiencia de usuario moderna y atractiva.
+## Descripción
 
-## ✨ ¿Qué te ofrece este frontend?
+Aplicación web frontend desarrollada en Angular 19 para la gestión integral de requerimientos de adquisiciones de la entidad ADRES. Esta aplicación proporciona una interfaz moderna y responsiva para administrar todo el ciclo de vida de las adquisiciones, desde la creación hasta el seguimiento histórico.
 
-*   **🎨 Interfaz moderna y elegante:** Diseño con gradientes, efectos glassmorphism y animaciones suaves
-*   **📊 Dashboard inteligente:** Estadísticas en tiempo real con tarjetas interactivas
-*   **🔍 Búsqueda avanzada:** Filtrado inteligente por múltiples criterios
-*   **📱 Diseño responsive:** Adaptable a cualquier dispositivo con mobile-first approach
-*   **💰 Gestión de adquisiciones:** Crea, edita y desactiva adquisiciones con validaciones robustas
-*   **📈 Historial de modificaciones:** Controla y visualiza el historial de cada cambio realizado
-*   **🌐 Integración con API REST:** Persistencia de datos garantizada con conexión a backend
-*   **⚡ Manejo de estado con NgRx:** Gestión del estado global robusta y eficiente
-*   **🎯 Paginación inteligente:** Navegación fluida entre grandes volúmenes de datos
+## Características Principales
 
-## 🚀 Instalación y configuración
+### Gestión de Adquisiciones
+- Creación y edición de requerimientos de adquisición
+- Listado paginado con búsqueda y filtros avanzados
+- Toggle para activar/desactivar adquisiciones
+- Validación de formularios en tiempo real
+- Integración completa con API REST
 
-### Prerrequisitos
+### Sistema de Historial
+- Seguimiento completo de cambios en adquisiciones
+- Auditoría de modificaciones por usuario
+- Visualización de valores anteriores y nuevos
+- Estadísticas de cambios por período
 
-Antes de empezar, asegúrate de tener instalado:
+### Dashboard Interactivo
+- Estadísticas dinámicas en tiempo real
+- Métricas de presupuesto y adquisiciones
+- Preview del dashboard de gestión
+- Consumo de datos desde API
 
-*   **Node.js** (versión LTS recomendada - 18.x o superior)
-*   **Angular CLI** (Ejecuta: `npm install -g @angular/cli`)
+### Interfaz de Usuario Moderna
+- Diseño responsivo para todos los dispositivos
+- Sistema de notificaciones toast elegante
+- Confirmaciones de acciones críticas
+- Animaciones y transiciones suaves
+- Gradientes y efectos visuales modernos
 
-### Pasos de instalación
+## Tecnologías Utilizadas
 
-1.  **Clona el repositorio:**
+### Framework Principal
+- **Angular 19**: Framework de desarrollo frontend
+- **TypeScript**: Lenguaje de programación tipado
+- **SCSS**: Preprocesador de CSS para estilos avanzados
 
-    ```bash
-    git clone https://github.com/titoespitia/gestion-adquisiciones-frontend.git
-    cd gestion-adquisiciones-frontend
-    ```
+### Gestión de Estado
+- **NgRx**: Arquitectura de estado global
+- **Actions, Reducers, Effects**: Patrón unidireccional de datos
+- **Selectors**: Consultas optimizadas del estado
 
-2.  **Instala las dependencias:**
+### Estilos y UI
+- **Angular Material MDC**: Componentes de Material Design
+- **CSS3 Avanzado**: Gradientes, animaciones, flexbox
+- **Responsive Design**: Mobile-first approach
+- **Glassmorphism**: Efectos visuales modernos
 
-    ```bash
-    npm install
-    ```
+### Herramientas de Desarrollo
+- **Angular CLI**: Herramientas de línea de comandos
+- **ESLint**: Linting de código
+- **Prettier**: Formateo automático de código
+- **Git**: Control de versiones
 
-3.  **Ejecuta el proyecto:**
+## Arquitectura del Proyecto
 
-    ```bash
-    npm start
-    # o
-    ng serve
-    ```
-
-    La aplicación estará disponible en `http://localhost:4200/`.
-
-## 🏗️ Estructura del proyecto
-
+### Estructura de Carpetas
 ```
 src/
 ├── app/
-│   ├── core/                          # Lógica central y servicios
-│   │   ├── interceptors/              # Interceptores HTTP
-│   │   ├── models/                    # Modelos de datos
-│   │   ├── services/                  # Servicios principales
-│   │   └── state/                     # Gestión de estado con NgRx
-│   │       ├── adquisiciones/         # Estado de adquisiciones
-│   │       ├── historial/             # Estado del historial
-│   │       └── ui/                    # Estado de la interfaz
-│   ├── features/                      # Módulos funcionales
-│   │   ├── adquisiciones/             # Gestión de adquisiciones
-│   │   └── historial/                 # Historial de cambios
-│   ├── pages/                         # Páginas principales
-│   │   ├── home/                      # Página de inicio
-│   │   └── not-found/                 # Página 404
-│   └── shared/                        # Componentes reutilizables
-│       ├── components/                # Componentes compartidos
-│       └── services/                  # Servicios compartidos
-├── assets/                            # Imágenes y recursos estáticos
-├── environments/                      # Configuración de entornos
-├── styles.scss                        # Estilos globales
-└── index.html                         # Entrada principal
+│   ├── core/                    # Servicios y modelos centrales
+│   │   ├── models/             # Interfaces de datos
+│   │   ├── services/           # Servicios de API
+│   │   └── state/              # Gestión de estado NgRx
+│   ├── features/               # Módulos de funcionalidad
+│   │   ├── adquisiciones/      # Gestión de adquisiciones
+│   │   └── historial/          # Sistema de historial
+│   ├── pages/                  # Páginas principales
+│   │   ├── home/               # Dashboard principal
+│   │   └── not-found/          # Página 404
+│   └── shared/                 # Componentes compartidos
+│       ├── components/         # Componentes reutilizables
+│       └── services/           # Servicios compartidos
+├── assets/                     # Recursos estáticos
+└── styles/                     # Estilos globales
 ```
 
-## 🎯 Funcionalidades implementadas
+### Patrones de Diseño
+- **Componentes Standalone**: Arquitectura moderna de Angular 19
+- **Lazy Loading**: Carga diferida de módulos
+- **Repository Pattern**: Abstracción de acceso a datos
+- **Service Layer**: Lógica de negocio centralizada
+- **Observer Pattern**: Manejo de datos reactivos
 
-### 🏠 Página de Inicio (Home)
-*   **Header moderno:** Navegación con efecto glassmorphism
-*   **Hero section:** Título principal con gradiente y descripción
-*   **Botones CTA:** Crear nuevo requerimiento y consultar adquisiciones
-*   **Estadísticas visuales:** Métricas destacadas con números grandes
-*   **Dashboard preview:** Vista previa 3D con rotación y efectos hover
-*   **Elementos animados:** Formas flotantes con animaciones suaves
+## Instalación y Configuración
 
-### 📋 Gestión de Adquisiciones
-*   **Lista inteligente:** Tabla moderna con filtros y paginación
-*   **Búsqueda en tiempo real:** Por proveedor, tipo de bien, documentación
-*   **Estadísticas dinámicas:** Presupuesto total, conteo de adquisiciones, proveedores únicos
-*   **Acciones rápidas:** Editar, ver historial y desactivar con botones modernos
-*   **Paginación avanzada:** Navegación intuitiva con contador de registros
-*   **Responsive design:** Adaptación completa para dispositivos móviles
+### Prerrequisitos
+- Node.js 18+ 
+- npm 9+ o yarn
+- Angular CLI 19+
 
-### ✏️ Formulario de Adquisiciones
-*   **Diseño moderno:** Layout de dos columnas con gradientes
-*   **Campos monetarios:** Con símbolo de peso colombiano ($) integrado
-*   **Validaciones robustas:** Mensajes de error claros y específicos
-*   **Campo de fecha:** Con icono de calendario integrado
-*   **Textarea expandible:** Para documentación con altura ajustable
-*   **Botones atractivos:** Gradientes y efectos hover modernos
-
-### 📊 Historial de Cambios
-*   **Registro detallado:** Cada modificación con fecha y usuario
-*   **Vista organizada:** Información estructurada y fácil de leer
-*   **Navegación fluida:** Integración con el sistema de rutas
-
-## 🎨 Estilos y diseño
-
-### 🎭 Características visuales
-*   **Gradientes modernos:** Transiciones suaves de azul a teal
-*   **Glassmorphism:** Efectos de transparencia y blur
-*   **Sombras suaves:** Profundidad visual con box-shadows
-*   **Animaciones CSS:** Transiciones y keyframes fluidos
-*   **Tipografía moderna:** Fuentes del sistema con pesos variables
-
-### 🌈 Paleta de colores
-*   **Primarios:** Azules (#1e40af, #1e3a8a, #0891b2)
-*   **Secundarios:** Teal (#06b6d4, #7dd3fc)
-*   **Acentos:** Verde (#059669), Púrpura (#7c3aed)
-*   **Neutros:** Blancos y grises con transparencias
-*   **Moneda:** Peso colombiano ($) en campos monetarios
-
-### 📱 Responsive Design
-*   **Mobile-first:** Enfoque en dispositivos móviles
-*   **Grid adaptativo:** Cambios de layout según tamaño de pantalla
-*   **Flexbox y CSS Grid:** Layouts modernos y flexibles
-*   **Breakpoints optimizados:** 768px, 1200px para diferentes dispositivos
-
-## 🔧 Tecnologías utilizadas
-
-*   **Angular 19:** Framework principal con standalone components
-*   **NgRx:** Gestión de estado global (actions, effects, reducers, selectors)
-*   **Angular Material:** Componentes UI de alta calidad
-*   **Reactive Forms:** Formularios reactivos con validaciones
-*   **CSS3 avanzado:** Gradientes, animaciones, efectos modernos
-*   **TypeScript:** Tipado estático para mayor robustez
-
-## 📱 Funcionalidades técnicas
-
-### 🔍 Búsqueda y filtrado
-*   **Búsqueda en tiempo real:** Actualización automática de resultados
-*   **Filtros múltiples:** Por presupuesto, unidad, tipo, cantidad, etc.
-*   **Validación de entrada:** Sanitización y validación de datos
-
-### 📊 Gestión de datos
-*   **Estado reactivo:** Actualización automática de la interfaz
-*   **Caché inteligente:** Optimización de rendimiento
-*   **Manejo de errores:** Interceptores HTTP para errores globales
-
-### 🎯 Validaciones
-*   **Campos requeridos:** Validación de obligatoriedad
-*   **Formato de datos:** Validación de tipos y formatos
-*   **Mensajes de error:** Feedback claro al usuario
-
-## 🚀 Comandos útiles
-
+### Instalación
 ```bash
-# Desarrollo
-npm start              # Inicia servidor de desarrollo
-ng serve              # Alternativa para desarrollo
+# Clonar el repositorio
+git clone https://github.com/JeissonLozano/GestionRegistroAdquisicionesWeb.git
 
-# Construcción
-npm run build         # Construye para producción
-ng build             # Alternativa para construcción
+# Navegar al directorio
+cd GestionRegistroAdquisicionesWeb
 
-# Testing
-npm run test         # Ejecuta pruebas unitarias
-ng test              # Alternativa para testing
+# Instalar dependencias
+npm install
 
-# Linting
-npm run lint         # Verifica calidad del código
-ng lint              # Alternativa para linting
+# Configurar variables de entorno
+cp .env.example .env
 ```
 
-## 🔄 Flujo de desarrollo
+### Configuración del Entorno
+```bash
+# Archivo .env
+API_BASE_URL=https://localhost:7195/api
+ENVIRONMENT=development
+```
 
-1.  **🏠 Página de inicio:** Dashboard con estadísticas y navegación principal
-2.  **📋 Lista de adquisiciones:** Vista con filtros, búsqueda y paginación
-3.  **✏️ Crear/Editar:** Formulario moderno con validaciones robustas
-4.  **📊 Historial:** Seguimiento de cambios y modificaciones
-5.  **🔄 Gestión de estado:** Actualización automática con NgRx
+### Ejecución
+```bash
+# Servidor de desarrollo
+npm start
 
-## 🌟 Características destacadas
+# Construcción para producción
+npm run build
 
-*   **Performance optimizado:** Lazy loading de módulos
-*   **SEO friendly:** Meta tags y estructura semántica
-*   **Accesibilidad:** ARIA labels y navegación por teclado
-*   **Cross-browser:** Compatibilidad con navegadores modernos
-*   **PWA ready:** Preparado para Progressive Web App
+# Ejecutar pruebas
+npm test
 
-## 🤝 Contribución
+# Linting del código
+npm run lint
+```
 
-Para contribuir al proyecto:
+## Configuración de la API
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+### Endpoints Principales
+- **Base URL**: `https://localhost:7195/api`
+- **Adquisiciones**: `/adquisiciones`
+- **Historial**: `/historial`
+- **Estadísticas**: `/estadisticas`
 
-## 📄 Licencia
+### Servicios Implementados
+- **AdquisicionService**: CRUD completo de adquisiciones
+- **HistorialService**: Consulta de historial de cambios
+- **EstadisticasService**: Métricas y estadísticas del sistema
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+## Funcionalidades del Sistema
 
-## 📞 Contacto
+### Dashboard Principal
+- Estadísticas en tiempo real
+- Métricas de presupuesto total
+- Conteo de adquisiciones activas
+- Proveedores únicos registrados
+- Adquisiciones del mes actual
 
-*   **Desarrollador:** Julian
-*   **Organización:** ADRES
-*   **Proyecto:** Sistema de Gestión de Adquisiciones
+### Gestión de Adquisiciones
+- Formulario de creación/edición
+- Validaciones en tiempo real
+- Cálculo automático de valores totales
+- Integración con API REST
+- Manejo de estados de carga
 
----
+### Sistema de Historial
+- Seguimiento de cambios por campo
+- Auditoría de modificaciones
+- Filtros por usuario y fecha
+- Estadísticas de actividad
+- Exportación de datos
 
-**¡Disfruta de una experiencia de usuario moderna y eficiente con nuestro sistema de gestión de adquisiciones!** 🚀
+### Notificaciones y Feedback
+- Sistema de toast elegante
+- Confirmaciones de acciones críticas
+- Estados de carga visuales
+- Manejo de errores robusto
+- Feedback inmediato al usuario
+
+## Características Técnicas
+
+### Performance
+- Lazy loading de módulos
+- Optimización de bundles
+- Compresión de assets
+- Caching inteligente
+- Lazy loading de imágenes
+
+### Seguridad
+- Validación de entrada de datos
+- Sanitización de contenido
+- Headers de seguridad HTTP
+- Manejo seguro de tokens
+- Protección contra XSS
+
+### Accesibilidad
+- Navegación por teclado
+- Indicadores de focus
+- Textos alternativos
+- Contraste de colores optimizado
+- Compatibilidad con lectores de pantalla
+
+### Responsive Design
+- Mobile-first approach
+- Breakpoints optimizados
+- Componentes adaptativos
+- Touch-friendly interfaces
+- Optimización para diferentes dispositivos
+
+## Contacto
+
+- **Desarrollador**: Jeisson Lozano
+- **Repositorio**: [GitHub](https://github.com/JeissonLozano/GestionRegistroAdquisicionesWeb)
+- **Backend API**: [GitHub](https://github.com/JeissonLozano/GestionRegistroAdquisicionesAPI)
+
+
