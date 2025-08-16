@@ -1,0 +1,167 @@
+<!-- Header compartido -->
+<app-header></app-header>
+
+<!-- Contenedor principal -->
+<div class="main-container">
+  <!-- Encabezado de página -->
+  <div class="page-header">
+    <h1 class="page-title">Gestionar Adquisiciones</h1>
+    <p class="page-subtitle">Control total de requerimientos, presupuestos y proveedores en tiempo real</p>
+  </div>
+
+  <!-- Botón de Volver -->
+  <div class="back-section">
+    <button class="back-btn" (click)="volver()">
+      ← Volver al Inicio
+    </button>
+  </div>
+
+  <!-- Sección de controles -->
+  <div class="controls-section">
+    <div class="controls-grid">
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Buscar por proveedor, tipo de bien o documentación..."
+          [(ngModel)]="terminoBusqueda"
+          (input)="buscarAdquisiciones()"
+        >
+      </div>
+      <button class="filter-btn" (click)="mostrarFiltrosAvanzados()">
+        🎛️ Filtros Avanzados
+      </button>
+      <button class="export-btn" (click)="exportarExcel()">
+        📊 Exportar Excel
+      </button>
+    </div>
+  </div>
+
+  <!-- Sección de estadísticas -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-blue">💰</div>
+      </div>
+      <div class="stat-value">{{ totalPresupuesto | currency:'$':'symbol':'1.0-0' }}</div>
+      <div class="stat-label">Presupuesto Total</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-green">📋</div>
+      </div>
+      <div class="stat-value">{{ totalAdquisiciones }}</div>
+      <div class="stat-label">Adquisiciones</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-purple">🏢</div>
+      </div>
+      <div class="stat-value">{{ totalProveedores }}</div>
+      <div class="stat-label">Proveedores</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-orange">📅</div>
+      </div>
+      <div class="stat-value">{{ adquisicionesEsteMes }}</div>
+      <div class="stat-label">Este Mes</div>
+    </div>
+  </div>
+
+  <!-- Contenedor de tabla -->
+  <div class="table-container">
+    <div class="table-header">
+      <div class="table-title">Lista de Adquisiciones</div>
+      <div class="table-count">Mostrando {{ (paginaActual - 1) * elementosPorPagina + 1 }}-{{ Math.min(paginaActual * elementosPorPagina, adquisicionesFiltradas.length) }} de {{ adquisicionesFiltradas.length }} registros</div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="row-number">No.</th>
+          <th>Presupuesto</th>
+          <th>Unidad</th>
+          <th>Tipo de Bien/Servicio</th>
+          <th>Cantidad</th>
+          <th>Valor Unitario</th>
+          <th>Valor Total</th>
+          <th>Fecha Adquisición</th>
+          <th>Proveedor</th>
+          <th>Documentación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let adquisicion of adquisicionesPaginadas; let i = index">
+          <td class="row-number">{{ (paginaActual - 1) * elementosPorPagina + i + 1 }}</td>
+          <td class="budget-cell">{{ adquisicion.presupuesto | currency:'$':'symbol':'1.0-0' }}</td>
+          <td class="unit-cell">{{ adquisicion.unidadAdministrativa }}</td>
+          <td class="type-cell">{{ adquisicion.tipoBienServicio }}</td>
+          <td>{{ adquisicion.cantidad | number }} unidades</td>
+          <td>{{ adquisicion.valorUnitario | currency:'$':'symbol':'1.0-0' }}</td>
+          <td class="budget-cell">{{ adquisicion.valorTotal | currency:'$':'symbol':'1.0-0' }}</td>
+          <td class="date-cell">{{ adquisicion.fechaAdquisicion | date:'longDate' }}</td>
+          <td class="provider-cell">{{ adquisicion.proveedor }}</td>
+          <td>{{ adquisicion.documentacion }}</td>
+          <td class="actions-cell">
+            <div class="action-buttons">
+              <button 
+                class="action-btn edit-btn" 
+                (click)="editarAdquisicion(adquisicion.id)" 
+                [disabled]="!adquisicion.activo"
+                title="Editar"
+              >
+                ✏️
+              </button>
+              <button 
+                class="action-btn view-btn" 
+                (click)="verHistorial(adquisicion.id)"
+                title="Ver Historial"
+              >
+                👁️
+              </button>
+              <button 
+                class="action-btn delete-btn" 
+                (click)="desactivarAdquisicion(adquisicion.id)"
+                [disabled]="!adquisicion.activo"
+                title="Desactivar"
+              >
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <div class="pagination-container">
+      <div class="pagination">
+        <button 
+          class="page-btn" 
+          (click)="cambiarPagina(paginaActual - 1)"
+          [disabled]="paginaActual === 1"
+        >
+          ←
+        </button>
+        <button 
+          *ngFor="let pagina of paginas" 
+          class="page-btn" 
+          [class.active]="pagina === paginaActual"
+          (click)="cambiarPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+        <button 
+          class="page-btn" 
+          (click)="cambiarPagina(paginaActual + 1)"
+          [disabled]="paginaActual === totalPaginas"
+        >
+          →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

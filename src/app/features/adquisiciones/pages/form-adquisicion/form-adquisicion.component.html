@@ -1,0 +1,182 @@
+<!-- Header compartido -->
+<app-header></app-header>
+
+<!-- Contenedor principal -->
+<div class="container">
+  <!-- Sección del header -->
+  <div class="header-section">
+    <button class="back-button" (click)="volver()">Volver</button>
+  </div>
+
+  <!-- Contenedor del formulario -->
+  <div class="form-container">
+    <div class="form-header">
+      <h1 class="form-title">Adquisiciones</h1>
+    </div>
+
+    <!-- Formulario de Adquisición -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-section">
+        <div class="form-grid">
+          <!-- Presupuesto -->
+          <div class="form-group">
+            <label class="form-label">Presupuesto:</label>
+            <div class="input-with-symbol">
+              <span class="currency-symbol">$</span>
+              <input 
+                id="presupuesto" 
+                type="number" 
+                class="form-input" 
+                formControlName="presupuesto" 
+                placeholder="Monto asignado" 
+                required 
+              />
+            </div>
+            <div class="error" *ngIf="form.get('presupuesto')?.invalid && form.get('presupuesto')?.touched">
+              * Este campo es obligatorio
+            </div>
+          </div>
+
+          <!-- Unidad -->
+          <div class="form-group">
+            <label class="form-label">Unidad:</label>
+            <input 
+              id="unidadAdministrativa" 
+              type="text" 
+              class="form-input" 
+              formControlName="unidadAdministrativa" 
+              placeholder="Administrativa responsable" 
+              required 
+            />
+            <div class="error" *ngIf="form.get('unidadAdministrativa')?.invalid && form.get('unidadAdministrativa')?.touched">
+              * Este campo es obligatorio
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- Tipo de bien o servicio -->
+          <div class="form-group">
+            <label class="form-label">Tipo de Bien o Servicio:</label>
+            <input 
+              id="tipoBienServicio" 
+              type="text" 
+              class="form-input" 
+              formControlName="tipoBienServicio" 
+              placeholder="Descripción" 
+              required 
+            />
+            <div class="error" *ngIf="form.get('tipoBienServicio')?.invalid && form.get('tipoBienServicio')?.touched">
+              * Este campo es obligatorio
+            </div>
+          </div>
+
+          <!-- Cantidad -->
+          <div class="form-group">
+            <label class="form-label">Cantidad:</label>
+            <input 
+              id="cantidad" 
+              type="number" 
+              class="form-input" 
+              formControlName="cantidad" 
+              placeholder="Número de unidades" 
+            />
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- Valor Unitario -->
+          <div class="form-group">
+            <label class="form-label">Valor Unitario:</label>
+            <div class="input-with-symbol">
+              <span class="currency-symbol">$</span>
+              <input 
+                id="valorUnitario" 
+                type="number" 
+                class="form-input" 
+                formControlName="valorUnitario" 
+                placeholder="Costo por unidad" 
+              />
+            </div>
+          </div>
+
+          <!-- Valor Total -->
+          <div class="form-group">
+            <label class="form-label">Valor Total:</label>
+            <div class="input-with-symbol">
+              <span class="currency-symbol">$</span>
+              <input 
+                id="valorTotal" 
+                type="number" 
+                class="form-input" 
+                formControlName="valorTotal" 
+                placeholder="Costo total" 
+                readonly 
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- Fecha de adquisición -->
+          <div class="form-group">
+            <label class="form-label">Fecha de adquisición:</label>
+            <div class="date-input">
+              <input 
+                id="fechaAdquisicion" 
+                type="date" 
+                class="form-input" 
+                formControlName="fechaAdquisicion" 
+              />
+            </div>
+          </div>
+
+          <!-- Proveedor -->
+          <div class="form-group">
+            <label class="form-label">Proveedor:</label>
+            <input 
+              id="proveedor" 
+              type="text" 
+              class="form-input" 
+              formControlName="proveedor" 
+              placeholder="Entidad proveedora" 
+            />
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- Documentación -->
+          <div class="form-group full-width">
+            <label class="form-label">Documentación:</label>
+            <textarea 
+              id="documentacion" 
+              class="form-input textarea-input" 
+              formControlName="documentacion" 
+              placeholder="Detalles como órdenes de compra, facturas, etc."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grupo de botones -->
+      <div class="button-group">
+        <button 
+          type="submit" 
+          id="enviarForm" 
+          class="btn btn-primary" 
+          [disabled]="form.invalid"
+        >
+          {{ isEditMode ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+
+      <!-- Mensaje de éxito -->
+      <div 
+        *ngIf="adquisicionCreada" 
+        class="success-message show"
+      >
+        {{ isEditMode ? '¡Su adquisición ha sido actualizada con éxito!' : '¡Su adquisición ha sido creada con éxito!' }}
+      </div>
+    </form>
+  </div>
+</div>

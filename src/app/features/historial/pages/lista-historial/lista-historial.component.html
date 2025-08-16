@@ -1,0 +1,112 @@
+<!-- Header compartido -->
+<app-header></app-header>
+
+<!-- Contenedor principal -->
+<div class="main-container">
+  <!-- Encabezado de página -->
+  <div class="page-header">
+    <h1 class="page-title">Historial de Cambios</h1>
+    <p class="page-subtitle">Registro detallado de todas las modificaciones realizadas en las adquisiciones</p>
+  </div>
+
+  <!-- Botón de Volver -->
+  <div class="back-section">
+    <button class="back-btn" (click)="volver()">
+      ← Volver al Inicio
+    </button>
+  </div>
+
+  <!-- Sección de estadísticas -->
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-blue">📊</div>
+      </div>
+      <div class="stat-value">{{ (historial$ | async)?.length || 0 }}</div>
+      <div class="stat-label">Cambios Registrados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-green">👥</div>
+      </div>
+      <div class="stat-value">{{ obtenerUsuariosUnicos() }}</div>
+      <div class="stat-label">Usuarios Activos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-purple">📅</div>
+      </div>
+      <div class="stat-value">{{ obtenerCambiosEsteMes() }}</div>
+      <div class="stat-label">Este Mes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-header">
+        <div class="stat-icon icon-orange">🔄</div>
+      </div>
+      <div class="stat-value">{{ obtenerCamposMasModificados() }}</div>
+      <div class="stat-label">Campo Más Cambiado</div>
+    </div>
+  </div>
+
+  <!-- Contenedor de tabla -->
+  <div class="table-container">
+    <div class="table-header">
+      <div class="table-title">Registro de Cambios</div>
+      <div class="table-count">
+        Mostrando {{ (historial$ | async)?.length || 0 }} registros de cambios
+      </div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="row-number">No.</th>
+          <th class="date-cell">Fecha de Modificación</th>
+          <th class="field-cell">Campo Modificado</th>
+          <th class="user-cell">Modificado por</th>
+          <th class="old-value-cell">Valor Anterior</th>
+          <th class="new-value-cell">Valor Nuevo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="(historial$ | async)?.length === 0" class="no-records">
+          <td colspan="6" class="sin-registros">
+            <div class="empty-state">
+              <div class="empty-icon">📋</div>
+              <div class="empty-text">No hay cambios registrados en esta adquisición</div>
+              <div class="empty-subtext">Los cambios aparecerán aquí cuando se modifiquen los datos</div>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let cambio of historial$ | async; let i = index" class="history-row">
+          <td class="row-number">{{ i + 1 }}</td>
+          <td class="date-cell">
+            <div class="date-info">
+              <div class="date-main">{{ cambio.fechaCambio | date:'dd/MM/yyyy' }}</div>
+              <div class="date-time">{{ cambio.fechaCambio | date:'HH:mm' }}</div>
+            </div>
+          </td>
+          <td class="field-cell">
+            <span class="field-badge">{{ cambio.campoModificado }}</span>
+          </td>
+          <td class="user-cell">
+            <div class="user-info">
+              <div class="user-avatar">👤</div>
+              <div class="user-name">{{ cambio.modificadoPor }}</div>
+            </div>
+          </td>
+          <td class="old-value-cell">
+            <div class="value-display old-value">
+              {{ cambio.valorAnterior || 'Sin valor' }}
+            </div>
+          </td>
+          <td class="new-value-cell">
+            <div class="value-display new-value">
+              {{ cambio.valorNuevo || 'Sin valor' }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
