@@ -29,44 +29,9 @@
           (input)="buscarAdquisiciones()"
         >
       </div>
-      <button class="filter-btn" (click)="mostrarFiltrosAvanzados()">
-        🎛️ Filtros Avanzados
+      <button class="create-btn" (click)="crearAdquisicion()">
+        ➕ Crear Adquisición
       </button>
-      <button class="export-btn" (click)="exportarExcel()">
-        📊 Exportar Excel
-      </button>
-    </div>
-  </div>
-
-  <!-- Sección de estadísticas -->
-  <div class="stats-section">
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="stat-icon icon-blue">💰</div>
-      </div>
-      <div class="stat-value">{{ totalPresupuesto | currency:'$':'symbol':'1.0-0' }}</div>
-      <div class="stat-label">Presupuesto Total</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="stat-icon icon-green">📋</div>
-      </div>
-      <div class="stat-value">{{ totalAdquisiciones }}</div>
-      <div class="stat-label">Adquisiciones</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="stat-icon icon-purple">🏢</div>
-      </div>
-      <div class="stat-value">{{ totalProveedores }}</div>
-      <div class="stat-label">Proveedores</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="stat-icon icon-orange">📅</div>
-      </div>
-      <div class="stat-value">{{ adquisicionesEsteMes }}</div>
-      <div class="stat-label">Este Mes</div>
     </div>
   </div>
 
@@ -110,7 +75,6 @@
               <button 
                 class="action-btn edit-btn" 
                 (click)="editarAdquisicion(adquisicion.id)" 
-                [disabled]="!adquisicion.activo"
                 title="Editar"
               >
                 ✏️
@@ -123,12 +87,13 @@
                 👁️
               </button>
               <button 
-                class="action-btn delete-btn" 
-                (click)="desactivarAdquisicion(adquisicion.id)"
-                [disabled]="!adquisicion.activo"
-                title="Desactivar"
+                class="action-btn toggle-btn" 
+                [class.active]="adquisicion.activo"
+                (click)="toggleEstadoAdquisicion(adquisicion.id, adquisicion.activo)"
+                [disabled]="cambiandoEstado"
+                [title]="adquisicion.activo ? 'Desactivar' : 'Activar'"
               >
-                🗑️
+                {{ adquisicion.activo ? '🟢' : '🔴' }}
               </button>
             </div>
           </td>

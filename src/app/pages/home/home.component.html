@@ -29,19 +29,41 @@
         </button>
       </div>
 
-      <div class="stats-grid">
+      <!-- Estados de carga y error -->
+      <div *ngIf="cargando" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>Cargando estadísticas...</p>
+      </div>
+
+      <div *ngIf="error" class="error-state">
+        <p>Error al cargar los datos</p>
+        <button class="btn btn-secondary" (click)="recargarDatos()">
+          🔄 Reintentar
+        </button>
+      </div>
+
+      <!-- Estadísticas dinámicas -->
+      <div *ngIf="!cargando && !error && estadisticas" class="stats-grid">
         <div class="stat-item">
-          <span class="stat-number">1,247</span>
+          <span class="stat-number">{{ formatearNumero(estadisticas.totalRequerimientos) }}</span>
           <span class="stat-label">Requerimientos Activos</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number">$847M</span>
+          <span class="stat-number">{{ formatearMoneda(estadisticas.presupuestoTotal) }}</span>
           <span class="stat-label">Presupuesto Gestionado</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number">156</span>
+          <span class="stat-number">{{ formatearNumero(estadisticas.totalProveedores) }}</span>
           <span class="stat-label">Proveedores Activos</span>
         </div>
+      </div>
+
+      <!-- Estado sin datos -->
+      <div *ngIf="!cargando && !error && !estadisticas" class="no-data-state">
+        <p>No hay datos disponibles</p>
+        <button class="btn btn-secondary" (click)="recargarDatos()">
+          🔄 Actualizar
+        </button>
       </div>
     </div>
 
@@ -56,17 +78,16 @@
           </div>
         </div>
         <div class="preview-content">
-          <div class="preview-card">
-            <div class="card-title">Medicamentos</div>
-            <div class="card-value">$10.000.000</div>
+          <!-- Preview dinámico de adquisiciones -->
+          <div *ngFor="let adquisicion of adquisicionesPreview" class="preview-card">
+            <div class="card-title">{{ adquisicion.tipoBienServicio }}</div>
+            <div class="card-value">{{ formatearMoneda(adquisicion.valorTotal) }}</div>
           </div>
-          <div class="preview-card">
-            <div class="card-title">Equipos Médicos</div>
-            <div class="card-value">$25.500.000</div>
-          </div>
-          <div class="preview-card">
-            <div class="card-title">Servicios</div>
-            <div class="card-value">$8.200.000</div>
+
+          <!-- Estado sin datos para preview -->
+          <div *ngIf="adquisicionesPreview.length === 0 && !cargando" class="preview-card no-data">
+            <div class="card-title">Sin datos</div>
+            <div class="card-value">--</div>
           </div>
         </div>
       </div>

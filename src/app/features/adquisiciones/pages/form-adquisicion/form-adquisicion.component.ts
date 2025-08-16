@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { AppState } from '../../../../core/state/app.state';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
 import { selectAdquisiciones } from '../../../../core/state/adquisiciones/adquisiciones.selectors';
+import { AdquisicionService } from '../../../../core/services/adquisicion.service';
+import { Adquisicion } from '../../../../core/models/adquisicion.model';
 
 @Component({
   selector: 'app-form-adquisicion',
@@ -19,11 +21,14 @@ export class FormAdquisicionComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private store = inject(Store<AppState>);
+  private adquisicionService = inject(AdquisicionService);
 
   form!: FormGroup;
   isEditMode = false;
   adquisicionId: number | null = null;
   adquisicionCreada = false;
+  cargando = false;
+  error = '';
 
   ngOnInit(): void {
     this.initForm();
@@ -116,23 +121,85 @@ export class FormAdquisicionComponent implements OnInit {
   }
 
   private crearAdquisicion(): void {
-    console.log('Creando adquisición:', this.form.value);
-    this.adquisicionCreada = true;
-    
-    setTimeout(() => {
-      this.adquisicionCreada = false;
-      this.router.navigate(['/adquisiciones']);
-    }, 3000);
+    this.cargando = true;
+    this.error = '';
+
+    const adquisicionData: Adquisicion = {
+      presupuesto: this.form.get('presupuesto')?.value,
+      unidadAdministrativa: this.form.get('unidadAdministrativa')?.value,
+      tipoBienServicio: this.form.get('tipoBienServicio')?.value,
+      cantidad: this.form.get('cantidad')?.value,
+      valorUnitario: this.form.get('valorUnitario')?.value,
+      valorTotal: this.form.get('valorTotal')?.value,
+      fechaAdquisicion: this.form.get('fechaAdquisicion')?.value,
+      proveedor: this.form.get('proveedor')?.value,
+      documentacion: this.form.get('documentacion')?.value,
+      usuarioModificador: 'Usuario Actual' // Valor por defecto
+    };
+
+    console.log('📡 Creando adquisición:', adquisicionData);
+
+    this.adquisicionService.createAdquisicion(adquisicionData).subscribe({
+      next: (response) => {
+        console.log('✅ Adquisición creada exitosamente:', response);
+        this.cargando = false;
+        this.adquisicionCreada = true;
+        
+        setTimeout(() => {
+          this.adquisicionCreada = false;
+          this.router.navigate(['/adquisiciones']);
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('❌ Error al crear adquisición:', error);
+        this.cargando = false;
+        this.error = 'Error al crear la adquisición. Por favor, inténtalo de nuevo.';
+      }
+    });
   }
 
   private actualizarAdquisicion(): void {
-    console.log('Actualizando adquisición:', this.form.value);
-    this.adquisicionCreada = true;
-    
-    setTimeout(() => {
-      this.adquisicionCreada = false;
-      this.router.navigate(['/adquisiciones']);
-    }, 3000);
+    if (!this.adquisicionId) {
+      this.error = 'ID de adquisición no válido';
+      return;
+    }
+
+    this.cargando = true;
+    this.error = '';
+
+    const adquisicionData: Adquisicion = {
+      id: this.adquisicionId,
+      presupuesto: this.form.get('presupuesto')?.value,
+      unidadAdministrativa: this.form.get('unidadAdministrativa')?.value,
+      tipoBienServicio: this.form.get('tipoBienServicio')?.value,
+      cantidad: this.form.get('cantidad')?.value,
+      valorUnitario: this.form.get('valorUnitario')?.value,
+      valorTotal: this.form.get('valorTotal')?.value,
+      fechaAdquisicion: this.form.get('fechaAdquisicion')?.value,
+      proveedor: this.form.get('proveedor')?.value,
+      documentacion: this.form.get('documentacion')?.value,
+      usuarioModificador: 'Usuario Actual' // Valor por defecto
+    };
+
+    console.log('📡 Actualizando adquisición:', adquisicionData);
+
+    this.adquisicionService.updateAdquisicion(this.adquisicionId, adquisicionData).subscribe({
+      next: () => {
+        console.log('✅ Adquisición actualizada exitosamente');
+        this.cargando = false;
+        this.adquisicionCreada = true;
+        
+        setTimeout(() => {
+          this.adquisicionCreada = false;
+          this.router.navigate(['/adquisiciones']);
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('❌ Error al actualizar adquisición:', error);
+        this.cargando = false;
+        this.error = 'Error al actualizar la adquisición. Por favor, inténtalo de nuevo.';
+      }
+    });
   }
 
   private marcarCamposComoTocados(): void {
@@ -146,5 +213,9 @@ export class FormAdquisicionComponent implements OnInit {
 
   volver(): void {
     this.router.navigate(['/adquisiciones']);
+  }
+
+  limpiarError(): void {
+    this.error = '';
   }
 }

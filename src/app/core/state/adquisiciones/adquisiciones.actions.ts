@@ -57,3 +57,21 @@ export const desactivarAdquisicionError = createAction(
   '[Adquisiciones] Desactivar Adquisición Error',
   props<{ error: any }>()
 );
+
+// Acción para reactivar una adquisición
+export const reactivarAdquisicion = createAction(
+  '[Adquisiciones] Reactivar Adquisición',
+  props<{ id: number }>()
+);
+
+// Acción cuando la reactivación es exitosa
+export const reactivarAdquisicionExito = createAction(
+  '[Adquisiciones] Reactivar Adquisición Éxito',
+  props<{ id: number }>()
+);
+
+// Acción cuando hay un error en la reactivación
+export const reactivarAdquisicionError = createAction(
+  '[Adquisiciones] Reactivar Adquisición Error',
+  props<{ error: any }>()
+);

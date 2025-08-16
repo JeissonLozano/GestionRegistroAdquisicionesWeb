@@ -54,6 +54,16 @@ export class AdquisicionService {
       .pipe(catchError(this.handleError));
   }
 
+  // Reactivar una adquisición
+  reactivarAdquisicion(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}/reactivar`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log('📡 Enviando solicitud de reactivación a la API para ID:', id);
+    return this.http
+      .put<void>(url, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
   // Manejo de errores HTTP
   private handleError(error: any): Observable<never> {
     console.error('Ocurrió un error:', error);

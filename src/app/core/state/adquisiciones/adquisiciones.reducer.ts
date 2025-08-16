@@ -76,11 +76,29 @@ export const adquisicionesReducer = createReducer(
   on(AdquisicionesActions.desactivarAdquisicionExito, (state, { id }) => ({
     ...state,
     adquisiciones: state.adquisiciones.map(adquisicion =>
-      adquisicion.id === id ? { ...adquisicion, estado: false } : adquisicion
+      adquisicion.id === id ? { ...adquisicion, activo: false } : adquisicion
     ),
     loading: false
   })),
   on(AdquisicionesActions.desactivarAdquisicionError, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error
+  })),
+
+  // Reactivar adquisición
+  on(AdquisicionesActions.reactivarAdquisicion, (state) => ({
+    ...state,
+    loading: true
+  })),
+  on(AdquisicionesActions.reactivarAdquisicionExito, (state, { id }) => ({
+    ...state,
+    adquisiciones: state.adquisiciones.map(adquisicion =>
+      adquisicion.id === id ? { ...adquisicion, activo: true } : adquisicion
+    ),
+    loading: false
+  })),
+  on(AdquisicionesActions.reactivarAdquisicionError, (state, { error }) => ({
     ...state,
     loading: false,
     error

@@ -10,4 +10,5 @@ export interface Adquisicion {
   proveedor: string;
   documentacion: string;
   usuarioModificador: string;
+  activo?: boolean;
 }

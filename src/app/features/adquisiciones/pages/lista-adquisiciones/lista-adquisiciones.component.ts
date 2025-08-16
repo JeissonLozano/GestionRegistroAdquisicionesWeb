@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { AppState } from '../../../../core/state/app.state';
 import { Observable } from 'rxjs';
 import { selectAdquisiciones, selectAdquisicionesLoading } from '../../../../core/state/adquisiciones/adquisiciones.selectors';
-import { cargarAdquisiciones, desactivarAdquisicion } from '../../../../core/state/adquisiciones/adquisiciones.actions';
+import { cargarAdquisiciones, desactivarAdquisicion, reactivarAdquisicion } from '../../../../core/state/adquisiciones/adquisiciones.actions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-lista-adquisiciones',
@@ -20,12 +21,14 @@ import { HeaderComponent } from '../../../../shared/components/header/header.com
 export class ListaAdquisicionesComponent implements OnInit {
   private store = inject(Store<AppState>);
   private router = inject(Router);
+  private toastService = inject(ToastService);
 
   adquisiciones$: Observable<any> = this.store.select(selectAdquisiciones);
   loading$: Observable<boolean> = this.store.select(selectAdquisicionesLoading);
 
   adquisicionesFiltradas: any[] = [];
   terminoBusqueda: string = '';
+  cambiandoEstado = false;
   
   // Paginación
   paginaActual: number = 1;
@@ -135,14 +138,55 @@ export class ListaAdquisicionesComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  crearAdquisicion(): void {
+    this.router.navigate(['/adquisiciones/nuevo']);
+  }
+
   editarAdquisicion(id: number): void {
     this.router.navigate(['/adquisiciones/editar', id]);
   }
 
-  desactivarAdquisicion(id: number): void {
-    if (confirm('¿Estás seguro de que deseas desactivar esta adquisición?')) {
-      this.store.dispatch(desactivarAdquisicion({ id }));
+  async toggleEstadoAdquisicion(id: number, estadoActual: boolean): Promise<void> {
+    this.cambiandoEstado = true;
+    
+    if (estadoActual) {
+      // Si está activa, desactivarla
+      const confirmado = await this.toastService.showConfirm(
+        '¿Estás seguro de que deseas desactivar esta adquisición?',
+        'Desactivar',
+        'Cancelar'
+      );
+      
+      if (confirmado) {
+        this.toastService.showAdquisicionProgress('desactivando');
+        this.store.dispatch(desactivarAdquisicion({ id }));
+        console.log('🔄 Desactivando adquisición con ID:', id);
+      } else {
+        this.cambiandoEstado = false;
+        return;
+      }
+    } else {
+      // Si está inactiva, reactivarla
+      const confirmado = await this.toastService.showConfirm(
+        '¿Estás seguro de que deseas reactivar esta adquisición?',
+        'Reactivar',
+        'Cancelar'
+      );
+      
+      if (confirmado) {
+        this.toastService.showAdquisicionProgress('reactivando');
+        this.store.dispatch(reactivarAdquisicion({ id }));
+        console.log('🔄 Reactivando adquisición con ID:', id);
+      } else {
+        this.cambiandoEstado = false;
+        return;
+      }
     }
+    
+    // Resetear el estado después de un tiempo
+    setTimeout(() => {
+      this.cambiandoEstado = false;
+    }, 2000);
   }
 
   verHistorial(id: number): void {

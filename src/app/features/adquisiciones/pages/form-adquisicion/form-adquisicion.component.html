@@ -164,10 +164,23 @@
           type="submit" 
           id="enviarForm" 
           class="btn btn-primary" 
-          [disabled]="form.invalid"
+          [disabled]="form.invalid || cargando"
         >
-          {{ isEditMode ? 'Actualizar' : 'Crear' }}
+          <span *ngIf="cargando">⏳ {{ isEditMode ? 'Actualizando...' : 'Creando...' }}</span>
+          <span *ngIf="!cargando">{{ isEditMode ? 'Actualizar' : 'Crear' }}</span>
         </button>
+      </div>
+
+      <!-- Mensaje de error -->
+      <div 
+        *ngIf="error" 
+        class="error-message"
+      >
+        <div class="error-content">
+          <span class="error-icon">⚠️</span>
+          <span class="error-text">{{ error }}</span>
+          <button class="error-close" (click)="limpiarError()">×</button>
+        </div>
       </div>
 
       <!-- Mensaje de éxito -->

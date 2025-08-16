@@ -111,27 +111,410 @@ button {
 }
 
 
-.toast-success {
-  background: #28a745 !important;
-  color: white !important;
-}
 
-.toast-error {
-  background: #dc3545 !important;
-  color: white !important;
-}
-
-.toast-info {
-  background: #17a2b8 !important;
-  color: white !important;
-}
-
-.toast-warning {
-  background: #ffc107 !important;
-  color: black !important;
-}
 
 body {
   padding: 0;
   margin: 0;
+}
+
+/* Estilos para notificaciones Toast */
+.toast-success {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  color: white !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(22, 163, 74, 0.3);
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  color: white !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+}
+
+.toast-info {
+  background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%) !important;
+  color: white !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(8, 145, 178, 0.3);
+}
+
+.toast-warning {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  color: white !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(217, 119, 6, 0.3);
+}
+
+.toast-confirm {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+  color: white !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+  min-width: 300px;
+}
+
+/* Estilos para el contenido del toast de confirmación */
+.toast-confirm .mat-simple-snackbar {
+  color: white !important;
+}
+
+.toast-confirm .mat-simple-snackbar-content {
+  color: white !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+/* Estilos para el texto del mensaje */
+.toast-confirm .mat-simple-snackbar-content span {
+  color: white !important;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  flex: 1;
+  margin-right: 16px;
+}
+
+/* Estilos para los botones de acción en las notificaciones */
+.toast-confirm .mat-simple-snackbar-action {
+  color: white !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 8px 16px;
+  margin-left: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Hover para el botón de acción */
+.toast-confirm .mat-simple-snackbar-action:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Estilos para el contenedor principal del snackbar */
+.mat-simple-snackbar {
+  animation: slideInUp 0.3s ease-out;
+  color: white !important;
+  min-height: 60px;
+}
+
+/* Asegurar que el texto sea visible en todos los estados */
+.mat-simple-snackbar-content {
+  color: inherit !important;
+  padding: 16px 24px !important;
+}
+
+.mat-simple-snackbar-content span {
+  color: inherit !important;
+}
+
+/* Estilos específicos para el mensaje de confirmación */
+.toast-confirm .mat-simple-snackbar-content .mat-simple-snackbar-text {
+  color: white !important;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-right: 16px;
+  flex: 1;
+}
+
+/* Forzar el layout del snackbar */
+.toast-confirm .mat-simple-snackbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+}
+
+/* Asegurar que el botón de acción sea visible */
+.toast-confirm .mat-simple-snackbar-action {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Estilos específicos para Angular Material MDC */
+.toast-confirm .mat-mdc-button-touch-target {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.toast-confirm .mat-mdc-button {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 8px 16px !important;
+  margin-left: 16px !important;
+  min-width: 80px !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+}
+
+.toast-confirm .mat-mdc-button:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Estilos para el contenedor del botón MDC */
+.toast-confirm .mat-mdc-button-touch-target {
+  position: relative !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 36px !important;
+}
+
+/* Forzar la visibilidad del contenido del snackbar MDC */
+.toast-confirm .mdc-snackbar__surface {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+  color: white !important;
+}
+
+.toast-confirm .mdc-snackbar__label {
+  color: white !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+/* Estilos para el botón de acción MDC */
+.toast-confirm .mdc-snackbar__actions {
+  display: flex !important;
+  align-items: center !important;
+  margin-left: 16px !important;
+}
+
+.toast-confirm .mdc-snackbar__actions .mdc-button {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 8px 16px !important;
+  min-width: 80px !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+}
+
+.toast-confirm .mdc-snackbar__actions .mdc-button:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Animaciones para las notificaciones */
+.mat-simple-snackbar {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive para notificaciones */
+@media (max-width: 768px) {
+  .toast-confirm {
+    min-width: 250px;
+    margin: 0 16px;
+  }
+}
+
+/* Estilos específicos para mat-unthemed y todas las variantes del botón */
+.toast-confirm .mat-mdc-snack-bar-action,
+.toast-confirm .mat-mdc-button.mat-unthemed,
+.toast-confirm .mat-mdc-button-base,
+.toast-confirm .mdc-button.mat-unthemed {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 8px 16px !important;
+  min-width: 80px !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Hover para todas las variantes del botón */
+.toast-confirm .mat-mdc-snack-bar-action:hover,
+.toast-confirm .mat-mdc-button.mat-unthemed:hover,
+.toast-confirm .mat-mdc-button-base:hover,
+.toast-confirm .mdc-button.mat-unthemed:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Estilos para el ripple effect - prevenir que se ponga blanco */
+.toast-confirm .mat-mdc-button-ripple,
+.toast-confirm .mat-ripple.mat-mdc-button-ripple {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+
+/* Estilos para el ripple persistente */
+.toast-confirm .mat-mdc-button-persistent-ripple,
+.toast-confirm .mdc-button__ripple {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+
+/* Estilos para el label del botón */
+.toast-confirm .mdc-button__label {
+  color: white !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Estilos para el focus indicator */
+.toast-confirm .mat-focus-indicator {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: white !important;
+}
+
+/* Estilos para el touch target */
+.toast-confirm .mat-mdc-button-touch-target {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+/* Forzar estilos en todos los estados del botón */
+.toast-confirm .mat-mdc-snack-bar-action:focus,
+.toast-confirm .mat-mdc-button.mat-unthemed:focus,
+.toast-confirm .mat-mdc-button-base:focus,
+.toast-confirm .mdc-button.mat-unthemed:focus {
+  background: rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+  outline: none !important;
+}
+
+.toast-confirm .mat-mdc-snack-bar-action:active,
+.toast-confirm .mat-mdc-button.mat-unthemed:active,
+.toast-confirm .mat-mdc-button-base:active,
+.toast-confirm .mdc-button.mat-unthemed:active {
+  background: rgba(255, 255, 255, 0.4) !important;
+  color: white !important;
+  transform: translateY(0) !important;
+}
+
+/* Estilos para el ripple en estado activo */
+.toast-confirm .mat-mdc-button-ripple.mat-ripple-active,
+.toast-confirm .mat-ripple.mat-mdc-button-ripple.mat-ripple-active {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+}
+
+/* Estilos específicos usando variables CSS de Angular Material MDC */
+.toast-confirm .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+  --mat-text-button-state-layer-color: rgba(255, 255, 255, 0.1) !important;
+  --mat-text-button-ripple-color: rgba(255, 255, 255, 0.2) !important;
+  --mat-text-button-hover-state-layer-color: rgba(255, 255, 255, 0.2) !important;
+  --mat-text-button-focus-state-layer-color: rgba(255, 255, 255, 0.2) !important;
+  --mat-text-button-pressed-state-layer-color: rgba(255, 255, 255, 0.3) !important;
+  --mat-text-button-selected-state-layer-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Estilos para el contenedor del snackbar MDC */
+.toast-confirm .mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: transparent !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+}
+
+/* Estilos para el botón del snackbar usando variables MDC */
+.toast-confirm .mat-mdc-snack-bar-action {
+  --mdc-filled-button-container-color: rgba(255, 255, 255, 0.2) !important;
+  --mdc-filled-button-label-text-color: white !important;
+  --mdc-filled-button-hover-container-color: rgba(255, 255, 255, 0.3) !important;
+  --mdc-filled-button-focus-container-color: rgba(255, 255, 255, 0.3) !important;
+  --mdc-filled-button-pressed-container-color: rgba(255, 255, 255, 0.4) !important;
+  --mdc-filled-button-disabled-container-color: rgba(255, 255, 255, 0.1) !important;
+  --mdc-filled-button-disabled-label-text-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Estilos para el ripple usando variables MDC */
+.toast-confirm .mat-mdc-snack-bar-action .mat-mdc-button-ripple {
+  --mat-mdc-button-persistent-ripple-color: rgba(255, 255, 255, 0.1) !important;
+  --mat-mdc-button-ripple-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Estilos para el focus indicator usando variables MDC */
+.toast-confirm .mat-mdc-snack-bar-action .mat-focus-indicator {
+  --mat-focus-indicator-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Estilos para el touch target usando variables MDC */
+.toast-confirm .mat-mdc-snack-bar-action .mat-mdc-button-touch-target {
+  --mat-mdc-button-touch-target-size: 48px !important;
+  --mat-mdc-button-touch-target-color: transparent !important;
+}
+
+/* Estilos para el label del botón usando variables MDC */
+.toast-confirm .mat-mdc-snack-bar-action .mdc-button__label {
+  --mdc-typography-button-text-color: white !important;
+  --mdc-typography-button-font-weight: 600 !important;
+  --mdc-typography-button-text-transform: uppercase !important;
+  --mdc-typography-button-letter-spacing: 0.5px !important;
+}
+
+/* Estilos para el estado disabled usando variables MDC */
+.toast-confirm .mat-mdc-snack-bar-action:disabled {
+  --mdc-filled-button-container-color: rgba(255, 255, 255, 0.1) !important;
+  --mdc-filled-button-label-text-color: rgba(255, 255, 255, 0.5) !important;
+  --mat-text-button-state-layer-color: transparent !important;
+  --mat-text-button-ripple-color: transparent !important;
+}
+
+/* NEUTRALIZAR ESTILOS PROBLEMÁTICOS DE ANGULAR MATERIAL */
+/* Sobrescribir los estilos que están causando el problema del botón blanco */
+.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+  --mat-text-button-state-layer-color: rgba(255, 255, 255, 0.1) !important;
+  --mat-text-button-ripple-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Estilos más específicos para forzar nuestros colores */
+.toast-confirm .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled),
+.toast-confirm .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action,
+.toast-confirm .mat-mdc-snack-bar-container .mat-mdc-button {
+  --mat-text-button-state-layer-color: rgba(255, 255, 255, 0.1) !important;
+  --mat-text-button-ripple-color: rgba(255, 255, 255, 0.2) !important;
+  --mat-text-button-hover-state-layer-color: rgba(255, 255, 255, 0.2) !important;
+  --mat-text-button-focus-state-layer-color: rgba(255, 255, 255, 0.2) !important;
+  --mat-text-button-pressed-state-layer-color: rgba(255, 255, 255, 0.3) !important;
+  --mat-text-button-selected-state-layer-color: rgba(255, 255, 255, 0.2) !important;
 }
